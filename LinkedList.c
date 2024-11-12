@@ -36,6 +36,7 @@ struct list_node* new_list_node(void *value, char type[])
  */
 void add_to_list(struct list_node* head, struct list_node* append)
 {
+    // Error handling if head is not really a head node
     if (head->next_node == NULL) 
     {
         head->next_node = append;
