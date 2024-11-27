@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 /* Struct for individual linked list nodes */
 typedef struct list_node 
@@ -9,6 +10,7 @@ typedef struct list_node
 struct list_node* next_node;
 void *value_ptr;
 char type[8];
+bool head; 
 } list_node_t;
 
 
@@ -31,6 +33,11 @@ struct list_node* new_list_node(void *value, char type[])
     return newNode;
 }
 
+void make_head_node(struct list_node* head_node)
+{
+    head_node -> head = true;
+}
+
 /**
  * \brief Adds node to list linked to the given head pointer
  * \param head node head that you want to add a node to
@@ -38,20 +45,28 @@ struct list_node* new_list_node(void *value, char type[])
  */
 void add_to_list(struct list_node* head, struct list_node* append)
 {
-    if (head->next_node == NULL) 
+    if( head-> head)
     {
-        head->next_node = append;
-    }
+        if (head->next_node == NULL) 
+        {
+            head->next_node = append;
+        }
+
+        else
+        {
+            struct list_node* current_node = head; 
+            while(current_node != NULL)
+            {
+                current_node = current_node->next_node;
+            }
+            current_node->next_node = append;
+            append->next_node = NULL;
+        }
+    }    
 
     else
     {
-        struct list_node* current_node = head; 
-        while(current_node != NULL)
-        {
-            current_node = current_node->next_node;
-        }
-        current_node->next_node = append;
-        append->next_node = NULL;
+        printf("Given head node is not head");
     }
 }
 
@@ -91,24 +106,91 @@ void iterate(struct list_node* list_node)
     }
 }
 
+void remove_node(struct list_node *head_node, int index)
+{
+    int curr_index = 0;
+    struct list_node *before_node = NULL;
+    struct list_node *after_node = NULL; 
+    if((head_node -> head) && (head_node->next_node == NULL) && (index == 0))
+    {
+        free(head_node);
+        return;
+    }
+
+
+    else if(head_node -> head)
+    {
+        while(head_node -> next_node != NULL)
+        {
+            if(curr_index == (index-1))
+            {
+                before_node = head_node;
+            }
+
+            else if (curr_index == index)
+            {
+                after_node = head_node -> next_node;
+                break;
+            }
+
+            curr_index++;
+            head_node = head_node -> next_node;
+        }
+
+        if((before_node != NULL) && (after_node != NULL))
+        {
+            before_node -> next_node = after_node;
+            free(head_node);
+        }
+
+        else if(after_node != NULL)
+        {
+            make_head_node(after_node);
+            free(head_node);
+        }
+        
+        else
+        {
+            before_node -> next_node = NULL;
+            free(head_node);
+        }
+
+    }
+}
+
 int main()
 {
-// Example stuff
-
 // TODO:  convert to void in the first place
 // TODO: delete Nodes
 
+/* Sample node initialization */
 int a = 5;
-void * new_val =  malloc(sizeof(5)); 
-new_val = &a;
+void * new_val = &a;
 
+/* Sample node initialization */
 int b = 3;
-void * new_val2 =  malloc(sizeof(3)); 
-new_val2 = &b;
+void * new_val2 = &b;
 
+/* Sample node initialization */
+int c = 4;
+void * new_val3 = &c;
+
+/* Sample node creation */
 struct list_node* new_node = new_list_node(new_val, "Integer");
+make_head_node(new_node);
+
+/* Sample node creation */
 struct list_node* new_node_1 = new_list_node(new_val2, "Integer");
+
+struct list_node* new_node_2 = new_list_node(new_val3, "Integer");
+
+
+/* Added to a new list */
 add_to_list(new_node, new_node_1);
+add_to_list(new_node, new_node_2);
+// remove_node(new_node, 0);
+
+/* Iterate through the list with given head node */
 iterate(new_node);
 
 return 0;

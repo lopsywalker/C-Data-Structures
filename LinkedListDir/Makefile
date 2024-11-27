@@ -1,2 +1,5 @@
 linkedlist: LinkedList.c
-	gcc LinkedList.c -o LinkedList
+	gcc LinkedList.c -Werror -o LinkedList
+
+clean: 
+	rm LinkedList
