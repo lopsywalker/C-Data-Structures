@@ -55,7 +55,7 @@ void add_to_list(struct list_node* head, struct list_node* append)
         else
         {
             struct list_node* current_node = head; 
-            while(current_node != NULL)
+            while(current_node->next_node != NULL)
             {
                 current_node = current_node->next_node;
             }
@@ -188,7 +188,7 @@ struct list_node* new_node_2 = new_list_node(new_val3, "Integer");
 /* Added to a new list */
 add_to_list(new_node, new_node_1);
 add_to_list(new_node, new_node_2);
-// remove_node(new_node, 0);
+remove_node(new_node, 1);
 
 /* Iterate through the list with given head node */
 iterate(new_node);
