@@ -3,3 +3,4 @@ This was created purely for learning purposes as an exploration into learning mo
 
 ### Current covered structures
 - Linked Lists
+- Dynamic Array
