@@ -4,8 +4,7 @@
 #include <stdbool.h>
 
 /* Struct for individual linked list nodes */
-typedef struct list_node 
-{
+typedef struct list_node {
 /* Struct pointer needs to have explicit name */ 
 struct list_node* next_node;
 void *value_ptr;
@@ -19,8 +18,7 @@ bool head;
  * \param value The value being held by the list node
  * \param type The type of the value as a string
  */
-struct list_node* new_list_node(void *value, char type[])
-{
+struct list_node* new_list_node(void *value, char type[]) {
     /*
      If head does not exist, make new node head
      if head does exist move pointer
@@ -33,8 +31,7 @@ struct list_node* new_list_node(void *value, char type[])
     return newNode;
 }
 
-void make_head_node(struct list_node* head_node)
-{
+void make_head_node(struct list_node* head_node) {
     head_node -> head = true;
 }
 
@@ -43,8 +40,7 @@ void make_head_node(struct list_node* head_node)
  * \param head node head that you want to add a node to
  * \param append node that you want added to the list
  */
-void add_to_list(struct list_node* head, struct list_node* append)
-{
+void add_to_list(struct list_node* head, struct list_node* append) {
     if( head-> head)
     {
         if (head->next_node == NULL) 
@@ -74,8 +70,7 @@ void add_to_list(struct list_node* head, struct list_node* append)
  * \brief Iterates through a listen give a node to start at
  * \param list_node The node to start from that it needs to iterate through
  */
-void iterate(struct list_node* list_node)
-{
+void iterate(struct list_node* list_node) {
     while(list_node != NULL) 
     {
         if(strcmp(list_node->type, "String") == 0) {
@@ -106,8 +101,7 @@ void iterate(struct list_node* list_node)
     }
 }
 
-void remove_node(struct list_node *head_node, int index)
-{
+void remove_node(struct list_node *head_node, int index) {
     int curr_index = 0;
     struct list_node *before_node = NULL;
     struct list_node *after_node = NULL; 
@@ -158,8 +152,7 @@ void remove_node(struct list_node *head_node, int index)
     }
 }
 
-int main()
-{
+int main() {
 // TODO:  convert to void in the first place
 // TODO: delete Nodes
 
