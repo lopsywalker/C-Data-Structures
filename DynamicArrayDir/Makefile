@@ -1,4 +1,4 @@
-linkedlist: DynamicArray.c
+dynamicarray: DynamicArray.c
 	gcc DynamicArray.c -Werror -o DynamicArray
 
 clean: 
